@@ -299,7 +299,9 @@ else(WIN32)
     endif()
 endif()
 
+# target definitions passed to the clients
 target_include_directories(dbus-1 INTERFACE $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/dbus-1.0>;$<INSTALL_INTERFACE:${CMAKE_INSTALL_LIBDIR}/dbus-1.0/include>)
+target_compile_definitions(dbus-1 INTERFACE "")
 
 # Assume that Linux has -Wl,--version-script and other platforms do not
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
