@@ -145,15 +145,15 @@ if(DBUS_ENABLE_EMBEDDED_TESTS)
     add_test_executable(test-misc-internals "${SOURCES}" dbus-testutils)
     set_target_properties(test-misc-internals PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
-    set(SOURCES bus/main.c)
+    set(SOURCES bus/main.c bus/common.c bus/common.h)
     add_test_executable(test-bus "${SOURCES}" dbus-daemon-internal dbus-testutils ${EXPAT_LIBRARIES})
     set_target_properties(test-bus PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
-    set(SOURCES bus/dispatch.c)
+    set(SOURCES bus/dispatch.c bus/common.c bus/common.h)
     add_test_executable(test-bus-dispatch "${SOURCES}" dbus-daemon-internal dbus-testutils ${EXPAT_LIBRARIES})
     set_target_properties(test-bus-dispatch PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
-    set(SOURCES bus/dispatch-sha1.c)
+    set(SOURCES bus/dispatch-sha1.c bus/common.c bus/common.h)
     add_test_executable(test-bus-dispatch-sha1 "${SOURCES}" dbus-daemon-internal dbus-testutils ${EXPAT_LIBRARIES})
     set_target_properties(test-bus-dispatch-sha1 PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
