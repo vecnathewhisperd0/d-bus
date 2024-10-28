@@ -48,6 +48,10 @@ Bug fixes:
   Solaris audit API integration
   (dbus!477, Alan Coopersmith)
 
+• Fix service activation timeouts when built with embedded tests (test
+  instrumentation) and run on a platform with a large file descriptor limit
+  (dbus#527, Simon McVittie)
+
 • Fix test failures on platforms where deleting the current working
   directory is not allowed, such as Solaris
   (dbus!480, Alan Coopersmith)
