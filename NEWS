@@ -1,3 +1,64 @@
+dbus 1.16.0 (UNRELEASED)
+========================
+
+1.16.x will be a new stable branch, superseding 1.14.x.
+
+Summary of major changes between 1.14.x and 1.16.0
+--------------------------------------------------
+
+Build system and dependencies:
+
+• The Meson build system is the recommended way to build dbus on Unix.
+  This requires Meson 0.56 and Python 3.5.
+  · Projects that depend on libdbus can build it as a Meson subproject.
+
+• CMake continues to be available as an alternative build system.
+  This requires CMake 3.9.
+
+• A C99 compiler such as gcc, clang, or Visual Studio 2015 is required.
+  A C11 compiler such as gcc, clang, or Visual Studio 2019 is recommended.
+
+• On platforms with larger-than-64-bit pointers, a C11 compiler is required
+
+Behaviour changes:
+
+• On Unix, the well-known system bus socket is in the runtime state
+  directory by default (normally /run)
+  (see 1.15.4 for more details)
+
+• On Linux with systemd, dbus-daemon starts as the target user/group
+  (retaining CAP_AUDIT_WRITE) instead of starting as root and
+  dropping privileges
+
+Feature removals:
+
+• Autotools build system
+
+• pam_console/pam_foreground integration
+  (Autotools --with-console-auth, CMake -DDBUS_CONSOLE_AUTH_DIR)
+
+New features and significant bug fixes:
+
+• ProcessFD in GetConnectionCredentials() on Linux
+  (see 1.15.8 for more details)
+
+• On Unix, the system message bus now loads .service files from /etc and /run
+
+• Use close_range() to close unwanted file descriptors or mark them
+  close-on-exec, if available
+
+• Use 64-bit timestamps internally on 32-bit platforms, for Y2038 safety
+
+• Use APIs that can return 64-bit timestamps and inode numbers on
+  32-bit glibc
+
+• AF_UNIX sockets are available on sufficiently recent Windows
+
+• dbus-send can send arrays of variants, variant values in dictionaries,
+  and nested variants
+
+• Portability to CPU architectures with larger-than-64-bit pointers
+
 dbus 1.15.12 (UNRELEASED)
 =========================
 
