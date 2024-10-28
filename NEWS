@@ -1,7 +1,10 @@
 dbus 1.14.12 (UNRELEASED)
 =========================
 
-...
+Bug fixes:
+
+• When building with Autotools on Solaris, fix detection of Solaris
+  audit API integration (dbus!478, Alan Coopersmith)
 
 dbus 1.14.10 (2023-09-01)
 =========================
