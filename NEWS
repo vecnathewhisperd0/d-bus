@@ -4,6 +4,8 @@ dbus 1.15.12 (UNRELEASED)
 Enhancements:
 
 • D-Bus Specification 0.43:
+  · Recommend loading system services from /etc/dbus-1/system-services
+    and /run/dbus-1/system-services (dbus!467, Luca Boccassi)
   · Reorganise documentation of the message bus to make it easier to add
     new interfaces (dbus!472, Simon McVittie)
   · Document o.fd.DBus.Debug.Stats interface (dbus!472, Simon McVittie)
@@ -12,7 +14,23 @@ Enhancements:
   · Don't imply that all clients need to support obsolete message bus
     implementations (dbus!471, Simon McVittie)
 
+• API design advice:
+  · Document typical approaches to emulating nullable types in the D-Bus
+    type system (dbus!446, Zeeshan Ali Khan)
+
+• On Unix, additionally load system services from:
+  · /etc/dbus-1/system-services, reserved for use by either the local system
+    administrator, or software such as asset managers and configuration
+    management frameworks acting on their behalf
+  · /run/dbus-1/system-services, for ephemeral services
+  (dbus!467, Luca Boccassi)
+
 Bug fixes:
+
+• Increase file descriptor soft limit to hard limit before testing file
+  descriptor passing, and correctly skip the test for flooding the bus
+  with fds when the limit is too low, fixing test failures on Solaris
+  (dbus#176, Alan Coopersmith)
 
 • When building API documentation with Doxygen, always generate a working
   link in the index HTML page
@@ -21,6 +39,18 @@ Bug fixes:
 • When building with Meson, add (more) test dependencies so that 'meson test'
   does not always need to be preceded by 'meson compile'
   (dbus!468, Simon McVittie)
+
+• When installing with Meson, don't fail if we are installing as root but
+  the user/group that will own the setuid dbus-daemon-launch-helper do not
+  yet exist (dbus#492, Jordan Williams)
+
+• When building with Meson on Solaris, fix detection and build of
+  Solaris audit API integration
+  (dbus!477, Alan Coopersmith)
+
+• Fix test failures on platforms where deleting the current working
+  directory is not allowed, such as Solaris
+  (dbus!480, Alan Coopersmith)
 
 Internal changes:
 
