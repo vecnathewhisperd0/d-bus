@@ -3,8 +3,24 @@ dbus 1.14.12 (UNRELEASED)
 
 Bug fixes:
 
+• Increase file descriptor soft limit to hard limit before testing file
+  descriptor passing, and correctly skip the test for flooding the bus
+  with fds when the limit is too low, fixing test failures on Solaris
+  (dbus#176, Alan Coopersmith)
+
 • When building with Autotools on Solaris, fix detection of Solaris
   audit API integration (dbus!478, Alan Coopersmith)
+
+• Fix service activation timeouts when built with embedded tests (test
+  instrumentation) and run on a platform with a large file descriptor limit
+  (dbus#527, Simon McVittie)
+
+Internal changes:
+
+• Significantly speed up a particularly slow unit test by splitting it
+  into three shorter tests (dbus!483, Simon McVittie)
+
+• CI fixes (dbus!484, dbus!485; Simon McVittie)
 
 dbus 1.14.10 (2023-09-01)
 =========================
