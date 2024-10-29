@@ -10,7 +10,7 @@
 <xsl:template match="/">
   <book title="D-Bus: A system for interprocess communication"
         name="dbus"
-        link="{$prefix}/api/html/index.html"
+        link="{$prefix}/index.html"
         xmlns="http://www.devhelp.net/book"
         version="2"
         online="https://dbus.freedesktop.org/doc/"
