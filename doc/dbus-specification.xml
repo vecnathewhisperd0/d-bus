@@ -6,8 +6,8 @@
 <article id="index">
   <articleinfo>
     <title>D-Bus Specification</title>
-    <releaseinfo>Version 0.42</releaseinfo>
-    <date>2023-08-21</date>
+    <releaseinfo>Version 0.43</releaseinfo>
+    <date>2024-10-29</date>
     <authorgroup>
       <author>
         <firstname>Havoc</firstname>
@@ -77,6 +77,18 @@
        <revremark>
          See <ulink url='http://cgit.freedesktop.org/dbus/dbus/log/doc/dbus-specification.xml'>commit log</ulink>
        </revremark>
+     </revision>
+     <revision>
+       <revnumber>0.43</revnumber>
+       <date>2024-10-29</date>
+       <authorinitials></authorinitials>
+       <revdescription>
+         <itemizedlist>
+           <listitem><simpara>Recommend loading system services from /etc, /run</simpara></listitem>
+           <listitem><simpara>Document the Stats interface</simpara></listitem>
+           <listitem><simpara>Document the Verbose interface</simpara></listitem>
+         </itemizedlist>
+       </revdescription>
      </revision>
      <revision>
        <revnumber>0.42</revnumber>
