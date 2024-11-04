@@ -55,6 +55,11 @@ To make a release of D-Bus, do the following:
  - Update the online documentation with
      `ninja -C ${builddir} maintainer-upload-docs`.
 
+ - If `doc/busconfig.dtd` and/or `doc/introspect.dtd` have changed, send
+   a merge request to `xdg-specs` similar to
+   <https://gitlab.freedesktop.org/xdg/xdg-specs/90> to get the new
+   version published
+
  - post to dbus@lists.freedesktop.org announcing the release.
 
 ## Making a ".0" stable release
