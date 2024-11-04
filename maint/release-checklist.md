@@ -55,10 +55,6 @@ To make a release of D-Bus, do the following:
  - Update the online documentation with
      `ninja -C ${builddir} maintainer-upload-docs`.
 
- - update the wiki page http://www.freedesktop.org/Software/dbus by
-   adding the new release under the Download heading. Then, cut the
-   link and changelog for the previous that was there.
-
  - post to dbus@lists.freedesktop.org announcing the release.
 
 ## Making a ".0" stable release
@@ -85,3 +81,8 @@ and upload the branch tag to the server:
 To develop in this branch:
 
     git checkout dbus-X.Y
+
+After starting a new stable branch:
+
+ - update the wiki page <https://www.freedesktop.org/wiki/Software/dbus> by
+   adding the new release under the Download heading
