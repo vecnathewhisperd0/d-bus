@@ -405,7 +405,6 @@ setenv
 setlocale
 setresuid
 setrlimit
-socketpair
 strtoll
 strtoull
 unsetenv
@@ -629,8 +628,11 @@ fi
 AC_DEFINE_UNQUOTED([DBUS_USE_SYNC], [$have_sync], [Use the gcc __sync extension])
 
 #### Various functions
-AC_SEARCH_LIBS(socket,[socket network])
-AC_CHECK_FUNC(gethostbyname,,[AC_CHECK_LIB(nsl,gethostbyname)])
+# socket(), socketpair() are in -lsocket on older Solaris
+AC_SEARCH_LIBS([socket], [socket network])
+AC_SEARCH_LIBS([socketpair], [socket], [AC_DEFINE([HAVE_SOCKETPAIR], [1], [Have socketpair function])])
+# gethostbyname() is in -lnsl on older Solaris
+AC_CHECK_FUNC([gethostbyname], [], [AC_CHECK_LIB([nsl], [gethostbyname])])
 
 AC_CHECK_HEADERS([syslog.h])
 if test "x$ac_cv_header_syslog_h" = "xyes"; then
