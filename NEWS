@@ -62,7 +62,19 @@ New features and significant bug fixes:
 dbus 1.15.14 (UNRELEASED)
 =========================
 
-...
+Bug fixes:
+
+• Don't create /run/dbus/containers from tmpfiles.d.
+  It's only needed by a feature that is not available on this branch,
+  and can cause warnings from systemd-tmpfiles if the system bus user
+  has not been created (dbus!488, Simon McVittie)
+
+• Fix the Devhelp index for API documentation (dbus!486, Simon McVittie)
+
+• Fix detection of socketpair() on Solaris 10 (dbus#531, Simon McVittie)
+
+• Avoid undefined signed integer overflow when calculating hash table
+  indexes (dbus!487, Jami Kettunen)
 
 dbus 1.15.12 (2024-10-29)
 =========================
