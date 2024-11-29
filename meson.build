@@ -612,6 +612,25 @@ else
     network_libs = []
 endif
 
+# socket(), socketpair() might be in -lsocket, for example on older Solaris
+foreach function : ['socket', 'socketpair']
+    if not cc.has_function(
+        function,
+        args: compile_args_c,
+        dependencies: network_libs,
+    )
+        socket_lib = cc.find_library('socket', required: false)
+        if socket_lib.found() and cc.has_function(
+            function,
+            args: compile_args_c,
+            dependencies: network_libs + [socket_lib],
+        )
+            network_libs += [socket_lib]
+            break
+        endif
+    endif
+endforeach
+
 if get_option('x11_autolaunch').disabled()
     use_x11_autolaunch = false
     x11 = not_found
@@ -675,7 +694,14 @@ check_functions = [
 
 foreach function : check_functions
     macro = 'HAVE_' + function.underscorify().to_upper()
-    config.set(macro, cc.has_function(function, args: compile_args_c) ? 1 : false)
+    config.set(
+        macro,
+        cc.has_function(
+            function,
+            args: compile_args_c,
+            dependencies: network_libs,
+        ) ? 1 : false,
+    )
 endforeach
 
 # keep CMakeLists.txt in sync
