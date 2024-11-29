@@ -13,6 +13,7 @@
 /manual-test-thread-blocking
 /test-apparmor-activation
 /test-assertions
+/test-atomic
 /test-bus
 /test-containers
 /test-corrupt
@@ -21,10 +22,12 @@
 /test-desktop-file
 /test-exit
 /test-fdpass
+/test-hash
 /test-header-fields
 /test-loopback
 /test-marshal
 /test-message
+/test-misc-internals
 /test-monitor
 /test-names
 /test-printf
@@ -43,4 +46,5 @@
 /test-sysdeps
 /test-syslog
 /test-uid-permissions
+/test-userdb
 /test-variant

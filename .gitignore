@@ -18,6 +18,8 @@
 /dbus-1.*-coverage/
 /dbus-1.*.tar.*
 /dbus-1.*/
+/doc/catalog.xml
+/doc/index.html
 /libtool
 /m4/libtool.m4
 /m4/lt*.m4

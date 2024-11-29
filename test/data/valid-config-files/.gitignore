@@ -15,6 +15,7 @@
 /multi-user.conf
 /pending-fd-timeout.conf
 /run-with-tmp-session-bus.conf
+/send-destination-prefix-rules.conf
 /session.conf
 /systemd-activation.conf
 /tmp-session.conf
