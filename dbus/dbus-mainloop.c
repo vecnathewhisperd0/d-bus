@@ -562,6 +562,20 @@ _dbus_loop_queue_dispatch (DBusLoop       *loop,
     return FALSE;
 }
 
+/* Returns the smaller non-negative number of the two, or the larger negative
+ * number if both numbers are negative. Poll interprets negative timeout as
+ * infinity, which makes it longer than any actual timeout.
+ */
+static int
+min_poll_timeout (int a,
+                  int b)
+{
+  if (a < b)
+    return a < 0 ? b : a;
+  else
+    return b < 0 ? a : b;
+}
+
 /* Returns TRUE if we invoked any timeouts or have ready file
  * descriptors, which is just used in test code as a debug hack
  */
@@ -620,10 +634,7 @@ _dbus_loop_iterate (DBusLoop     *loop,
 
               check_timeout (tv_sec, tv_usec, tcb, &msecs_remaining);
 
-              if (timeout < 0)
-                timeout = msecs_remaining;
-              else
-                timeout = MIN (msecs_remaining, timeout);
+              timeout = min_poll_timeout (msecs_remaining, timeout);
 
 #if MAINLOOP_SPEW
               _dbus_verbose ("  timeout added, %d remaining, aggregate timeout %ld\n",
@@ -656,7 +667,7 @@ _dbus_loop_iterate (DBusLoop     *loop,
    * wait to re-enable it
    */
   if (loop->oom_watch_pending)
-    timeout = MIN (timeout, _dbus_get_oom_wait ());
+    timeout = min_poll_timeout (timeout, _dbus_get_oom_wait ());
 
 #if MAINLOOP_SPEW
   _dbus_verbose ("  polling on %d descriptors timeout %ld\n", _DBUS_N_ELEMENTS (ready_fds), timeout);
