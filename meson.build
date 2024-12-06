@@ -1149,6 +1149,8 @@ else
       #   a fixed signature but do not necessarily need all of its parameters
       '-Wno-missing-field-initializers',
       '-Wno-unused-parameter',
+      # We are not going to stop using deprecated functions on a stable branch
+      '-Wno-deprecated-declarations',
 
       # General warnings for both C and C++
       # TODO: Some of these are probably redundant with Meson's warning_level
