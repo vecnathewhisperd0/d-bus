@@ -59,15 +59,24 @@ New features and significant bug fixes:
 
 • Portability to CPU architectures with larger-than-64-bit pointers
 
-dbus 1.15.14 (UNRELEASED)
+dbus 1.15.90 (2024-12-06)
 =========================
 
-Bug fixes:
+The “futuristic flyer” release.
 
-• Don't create /run/dbus/containers from tmpfiles.d.
-  It's only needed by a feature that is not available on this branch,
-  and can cause warnings from systemd-tmpfiles if the system bus user
-  has not been created (dbus!488, Simon McVittie)
+This is a release-candidate for the new dbus 1.16.x stable branch.
+
+Build-time configuration changes:
+
+• The experimental Containers1 interface has been removed from this branch.
+  It is incomplete and not ready for production use, and has been
+  compile-time-disabled and impossible to enable without patching
+  since 1.13.20. To reduce confusion, delete the code completely.
+  It remains present on the git `master` branch for 1.17.x, and will
+  hopefully be reinstated during the 1.17.x cycle.
+  (dbus!488, dbus!490; Simon McVittie)
+
+Bug fixes:
 
 • Fix the Devhelp index for API documentation (dbus!486, Simon McVittie)
 
