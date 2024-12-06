@@ -59,6 +59,11 @@ New features and significant bug fixes:
 
 • Portability to CPU architectures with larger-than-64-bit pointers
 
+dbus 1.15.91 (UNRELEASED)
+=========================
+
+...
+
 dbus 1.15.90 (2024-12-06)
 =========================
 
