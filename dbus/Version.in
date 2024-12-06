@@ -4,7 +4,7 @@ LIBDBUS_1_@SOVERSION@ {
   local:
     *;
 };
-LIBDBUS_PRIVATE_@DBUS_VERSION@ {
+LIBDBUS_PRIVATE_@DBUS_VERSION_NO_SUFFIX@ {
   global:
     _dbus_*;
 };

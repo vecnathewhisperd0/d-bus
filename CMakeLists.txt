@@ -20,7 +20,7 @@ else()
     set(LANGUAGES C)
 endif()
 project(dbus
-    VERSION ${DBUS_VERSION}
+    VERSION ${DBUS_VERSION_NO_SUFFIX}
     LANGUAGES C CXX
 )
 

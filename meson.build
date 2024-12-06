@@ -47,11 +47,13 @@ install_symlinks = []
 not_found = dependency('', required: false)
 
 version = meson.project_version()
+version_no_suffix = version.split('-')[0]
 config.set_quoted('VERSION',    version)
 data_config.set('VERSION',      version)
 data_config.set('DBUS_VERSION', version)
+data_config.set('DBUS_VERSION_NO_SUFFIX', version_no_suffix)
 
-ver_array = version.split('.')
+ver_array = version_no_suffix.split('.')
 arch_config.set('DBUS_VERSION', version)
 arch_config.set('DBUS_MAJOR_VERSION', ver_array[0])
 arch_config.set('DBUS_MINOR_VERSION', ver_array[1])
@@ -142,7 +144,7 @@ if platform_windows
     ).stdout().strip()
 
     data_config.set('BUILD_TIMESTAMP', build_timestamp)
-    data_config.set('BUILD_FILEVERSION', ','.join(version.split('.')))
+    data_config.set('BUILD_FILEVERSION', ','.join(version_no_suffix.split('.')))
 
     data_config.set('DBUS_VER_FILE_TYPE', 'VFT_DLL')
     data_config.set('DBUS_VER_INTERNAL_NAME', 'libdbus-1-@0@'       .format(soversion))

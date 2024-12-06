@@ -615,8 +615,11 @@ _dbus_list_test (const char *test_data_dir _DBUS_GNUC_UNUSED)
 static dbus_bool_t
 _dbus_misc_test (const char *test_data_dir _DBUS_GNUC_UNUSED)
 {
+  static const char compiled_version[] = DBUS_VERSION_STRING;
+  const char *runtime_version;
   int major, minor, micro;
   DBusString str;
+  size_t len;
 
   /* make sure we don't crash on NULL */
   dbus_get_version (NULL, NULL, NULL);
@@ -663,7 +666,17 @@ _dbus_misc_test (const char *test_data_dir _DBUS_GNUC_UNUSED)
   if (!_dbus_string_append_printf (&str, "%d.%d.%d", major, minor, micro))
     _dbus_test_fatal ("no memory");
 
-  _dbus_test_check (_dbus_string_equal_c_str (&str, DBUS_VERSION_STRING));
+  runtime_version = _dbus_string_get_const_data (&str);
+  len = _dbus_string_get_length_uint (&str);
+
+  /* This is not an API guarantee, but in practice we only plan to
+   * set the version string to either X.Y.Z (stable branches) or
+   * X.Y.Z-{alpha,beta,rc} (development branches), so the
+   * DBUS_VERSION_STRING stored in compiled_version should be
+   * X.Y.Z followed by either '\0' or "-...". */
+  _dbus_test_check (strlen (compiled_version) >= len);
+  _dbus_test_check (strncmp (runtime_version, compiled_version, len) == 0);
+  _dbus_test_check (compiled_version[len] == '\0' || compiled_version[len] == '-');
 
   _dbus_string_free (&str);
 

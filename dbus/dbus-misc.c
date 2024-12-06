@@ -179,6 +179,9 @@ dbus_get_local_machine_id (void)
  * least significant byte. This means two DBUS_VERSION can be compared to see
  * which is higher.
  *
+ * This does not include any release-status suffix like "-alpha", "-beta",
+ * "-rc".
+ *
  * Consider carefully whether to use this or the runtime version from
  * dbus_get_version().
  */
@@ -187,6 +190,10 @@ dbus_get_local_machine_id (void)
  * @def DBUS_VERSION_STRING
  *
  * The COMPILE TIME version of libdbus, as a string "X.Y.Z".
+ *
+ * This might include additional information beyond what appears in
+ * DBUS_VERSION, for example an "-alpha", "-beta" or "-rc" suffix
+ * that is not represented elsewhere.
  *
  * Consider carefully whether to use this or the runtime version from
  * dbus_get_version().
