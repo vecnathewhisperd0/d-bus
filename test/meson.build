@@ -591,12 +591,6 @@ if use_glib
 
     if platform_unix
         tests += [
-            {   'name': 'containers',
-                'srcs': [ 'containers.c' ],
-                'link': [ libdbus_testutils, ],
-                'deps': [ glib, gio, ],
-                'suite': ['runs-dbus-daemon'],
-            },
             {   'name': 'sd-activation',
                 'srcs': [ 'sd-activation.c' ],
                 'link': [ libdbus_testutils, ],

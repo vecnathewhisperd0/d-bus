@@ -41,13 +41,6 @@ option(
 )
 
 option(
-  'containers',
-  type: 'boolean',
-  value: false,
-  description: 'Enable restricted servers for app containers'
-)
-
-option(
   'dbus_daemondir',
   type: 'string',
   description: 'Directory for installing the dbus-daemon'

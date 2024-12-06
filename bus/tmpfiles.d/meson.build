@@ -25,12 +25,3 @@ configure_file(
     configuration: data_config,
     install_dir: get_option('prefix') / 'lib' / 'tmpfiles.d',
 )
-
-if get_option('containers')
-  configure_file(
-      input: 'dbus-containers.conf.in',
-      output: 'dbus-containers.conf',
-      configuration: data_config,
-      install_dir: get_option('prefix') / 'lib' / 'tmpfiles.d',
-  )
-endif

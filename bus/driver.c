@@ -28,7 +28,6 @@
 #include "activation.h"
 #include "apparmor.h"
 #include "connection.h"
-#include "containers.h"
 #include "driver.h"
 #include "dispatch.h"
 #include "services.h"
@@ -118,19 +117,6 @@ bus_driver_check_caller_is_not_container (DBusConnection *connection,
                                           DBusMessage    *message,
                                           DBusError      *error)
 {
-  if (bus_containers_connection_is_contained (connection, NULL, NULL, NULL))
-    {
-      const char *method = dbus_message_get_member (message);
-
-      bus_context_log_and_set_error (bus_transaction_get_context (transaction),
-          DBUS_SYSTEM_LOG_SECURITY, error, DBUS_ERROR_ACCESS_DENIED,
-          "rejected attempt to call %s by connection %s (%s) in "
-          "container", method,
-          nonnull (bus_connection_get_name (connection), "(inactive)"),
-          bus_connection_get_loginfo (connection));
-      return FALSE;
-    }
-
   return TRUE;
 }
 
@@ -1970,9 +1956,6 @@ bus_driver_fill_connection_credentials (DBusCredentials *credentials,
   dbus_pid_t pid = DBUS_PID_UNSET;
   const char *windows_sid = NULL;
   const char *linux_security_label = NULL;
-#ifdef DBUS_ENABLE_CONTAINERS
-  const char *path;
-#endif
 #ifdef HAVE_UNIX_FD_PASSING
   int pid_fd = -1; /* owned by credentials */
 #endif
@@ -2032,18 +2015,6 @@ bus_driver_fill_connection_credentials (DBusCredentials *credentials,
                                      strlen (linux_security_label) + 1))
         return FALSE;
     }
-
-#ifdef DBUS_ENABLE_CONTAINERS
-  /* This has to come from the connection, not the credentials */
-  if (peer_conn != NULL &&
-      bus_containers_connection_is_contained (peer_conn, &path, NULL, NULL))
-    {
-      if (!_dbus_asv_add_object_path (asv_iter,
-                                      DBUS_INTERFACE_CONTAINERS1 ".Instance",
-                                      path))
-        return FALSE;
-    }
-#endif
 
 #ifdef HAVE_UNIX_FD_PASSING
   if (caller_conn != NULL && pid_fd >= 0 &&
@@ -2500,7 +2471,8 @@ typedef enum
    * containers are never privileged. */
   METHOD_FLAG_PRIVILEGED = (1 << 1),
 
-  /* If set, callers must not be associated with a container instance. */
+  /* If set, callers must not be associated with a container instance.
+   * (No-op, the Containers1 interface is not present in this branch.) */
   METHOD_FLAG_NO_CONTAINERS = (1 << 2),
 
   METHOD_FLAG_NONE = 0
@@ -2649,29 +2621,6 @@ static const MessageHandler introspectable_message_handlers[] = {
   { NULL, NULL, NULL, NULL }
 };
 
-#ifdef DBUS_ENABLE_CONTAINERS
-static const MessageHandler containers_message_handlers[] = {
-  { "AddServer", "ssa{sv}a{sv}", "oays", bus_containers_handle_add_server,
-    METHOD_FLAG_NO_CONTAINERS },
-  { "StopInstance", "o", "", bus_containers_handle_stop_instance,
-    METHOD_FLAG_NO_CONTAINERS },
-  { "StopListening", "o", "", bus_containers_handle_stop_listening,
-    METHOD_FLAG_NO_CONTAINERS },
-  { "GetConnectionInstance", "s", "oa{sv}ssa{sv}",
-    bus_containers_handle_get_connection_instance,
-    METHOD_FLAG_NONE },
-  { "GetInstanceInfo", "o", "a{sv}ssa{sv}", bus_containers_handle_get_instance_info,
-    METHOD_FLAG_NONE },
-  { "RequestHeader", "", "", bus_containers_handle_request_header,
-    METHOD_FLAG_NONE },
-  { NULL, NULL, NULL, NULL }
-};
-static const PropertyHandler containers_property_handlers[] = {
-  { "SupportedArguments", "as", bus_containers_supported_arguments_getter },
-  { NULL, NULL, NULL }
-};
-#endif
-
 static const MessageHandler monitoring_message_handlers[] = {
   { "BecomeMonitor", "asu", "", bus_driver_handle_become_monitor,
     METHOD_FLAG_PRIVILEGED },
@@ -2777,13 +2726,6 @@ static InterfaceHandler interface_handlers[] = {
 #ifdef DBUS_ENABLE_STATS
   { BUS_INTERFACE_STATS, stats_message_handlers, NULL,
     INTERFACE_FLAG_NONE },
-#endif
-#ifdef DBUS_ENABLE_CONTAINERS
-  { DBUS_INTERFACE_CONTAINERS1, containers_message_handlers,
-    "    <signal name=\"InstanceRemoved\">\n"
-    "      <arg type=\"o\" name=\"path\"/>\n"
-    "    </signal>\n",
-    INTERFACE_FLAG_NONE, containers_property_handlers },
 #endif
   { DBUS_INTERFACE_PEER, peer_message_handlers, NULL,
     /* Not in the Interfaces property because it's a pseudo-interface
@@ -3082,16 +3024,6 @@ bus_driver_handle_message (DBusConnection *connection,
               if (!bus_driver_check_caller_is_privileged (connection,
                                                           transaction, message,
                                                           error))
-                {
-                  _DBUS_ASSERT_ERROR_IS_SET (error);
-                  return FALSE;
-                }
-            }
-          else if (mh->flags & METHOD_FLAG_NO_CONTAINERS)
-            {
-              if (!bus_driver_check_caller_is_not_container (connection,
-                                                             transaction,
-                                                             message, error))
                 {
                   _DBUS_ASSERT_ERROR_IS_SET (error);
                   return FALSE;

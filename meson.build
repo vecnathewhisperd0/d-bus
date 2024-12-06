@@ -1104,7 +1104,6 @@ config.set_quoted('DBUS_SESSION_BUS_CONNECT_ADDRESS', session_bus_connect_addres
 
 
 config.set('DBUS_ENABLE_STATS', get_option('stats'))
-config.set('DBUS_ENABLE_CONTAINERS', get_option('containers'))
 enable_user_session = get_option('user_session')
 
 
@@ -1353,7 +1352,6 @@ summary_dict += {
     'Building assertions':      asserts,
     'Building checks':          checks,
     'Building bus stats API':   get_option('stats'),
-    'Building container API':   get_option('containers'),
     'Building SELinux support': config.get('HAVE_SELINUX'),
     'Building AppArmor support': apparmor.found(),
     'Building inotify support': use_inotify,
