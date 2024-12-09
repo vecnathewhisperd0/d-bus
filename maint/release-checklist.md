@@ -70,7 +70,7 @@ changes on a stable branch should be limited to significant bug fixes.
 
 Because we won't make minor changes like keeping up with the latest
 deprecations on a stable branch, stable branches should turn off the
-gcc warning for deprecated declarations (e.g. see commit 4ebb275ab7).
+gcc warning for deprecated declarations (e.g. see commit 76a68867).
 
 Be extra-careful not to merge master (or any branch based on master) into a
 stable branch.
