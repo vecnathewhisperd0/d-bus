@@ -82,10 +82,10 @@ option(
 )
 
 option(
-  'embedded_tests',
+  'intrusive_tests',
   type: 'boolean',
   value: false,
-  description: 'Enable unit test code in the library and binaries'
+  description: 'Enable tests that require insecure extra code in the library and binaries'
 )
 
 option(

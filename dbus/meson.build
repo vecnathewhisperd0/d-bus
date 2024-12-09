@@ -79,7 +79,7 @@ dbus_shared_sources = [
     'dbus-sysdeps.c',
 ]
 
-if embedded_tests
+if intrusive_tests
     dbus_shared_sources += 'dbus-test-tap.c'
 endif
 

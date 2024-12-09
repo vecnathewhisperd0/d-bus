@@ -254,7 +254,9 @@ endif
 
 tests = []
 
-if embedded_tests
+if intrusive_tests
+    # These tests require special instrumentation in libdbus and/or
+    # dbus-daemon, which is not safe to enable in production builds.
 
     tests += [
         {
@@ -682,10 +684,10 @@ if message_bus and tools and platform_unix and use_glib
     ]
 
     # Testing dbus-launch relies on special code in that binary.
-    if embedded_tests
+    if intrusive_tests
         scripts += { 'name': 'test-dbus-launch-eval.sh' }
     endif
-    if embedded_tests and use_x11_autolaunch
+    if intrusive_tests and use_x11_autolaunch
         scripts += { 'name': 'test-dbus-launch-x11.sh' }
     endif
 endif

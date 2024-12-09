@@ -354,7 +354,7 @@ case "$ci_buildsys" in
         case "$ci_variant" in
             (debug)
                 set -- -Dasserts=true "$@"
-                set -- -Dembedded_tests=true "$@"
+                set -- -Dintrusive_tests=true "$@"
                 set -- -Dverbose_mode=true "$@"
 
                 case "$ci_host" in

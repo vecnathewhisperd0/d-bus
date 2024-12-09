@@ -20,7 +20,7 @@
 # SOFTWARE.
 
 
-if embedded_tests
+if intrusive_tests
 
     tests = [
         {'name': 'test-ids'},

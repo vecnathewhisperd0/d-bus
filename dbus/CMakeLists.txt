@@ -143,7 +143,7 @@ set(DBUS_SHARED_HEADERS
     dbus-sysdeps.h
 )
 
-if(DBUS_ENABLE_EMBEDDED_TESTS)
+if(DBUS_ENABLE_INTRUSIVE_TESTS)
     set(DBUS_SHARED_SOURCES ${DBUS_SHARED_SOURCES} dbus-test-tap.c)
     set(DBUS_SHARED_HEADERS ${DBUS_SHARED_HEADERS} dbus-test-tap.h)
     # ... else they are in the test library instead
