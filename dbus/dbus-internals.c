@@ -1097,7 +1097,7 @@ run_failing_each_malloc (int                    n_mallocs,
       n_mallocs -= 1;
     }
 
-  _dbus_set_fail_alloc_counter (_DBUS_INT_MAX);
+  _dbus_set_fail_alloc_counter (-1);
 
   return TRUE;
 }                        
@@ -1127,14 +1127,18 @@ _dbus_test_oom_handling (const char             *description,
 
   /* Run once to see about how many mallocs are involved */
   
-  _dbus_set_fail_alloc_counter (_DBUS_INT_MAX);
+  _dbus_set_fail_alloc_counter (-1);
 
   _dbus_test_diag ("Running \"%s\" once to count mallocs", description);
 
   if (!(* func) (data, TRUE))
     return FALSE;
 
-  approx_mallocs = _DBUS_INT_MAX - _dbus_get_fail_alloc_counter ();
+  /* We have decremented the counter once per allocation, so for example
+   * if there were 10 allocations, it will have changed from -1 to -11.
+   * Subtract from -1 to get the positive number of allocations that took
+   * place. */
+  approx_mallocs = -1 - _dbus_get_fail_alloc_counter ();
 
   _dbus_test_diag ("\"%s\" has about %d mallocs in total",
                    description, approx_mallocs);
