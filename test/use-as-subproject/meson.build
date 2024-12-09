@@ -22,7 +22,7 @@ libdbus_dep = dependency(
     fallback: ['dbus', 'libdbus_dep'],
     default_options: [
       'default_library=static',
-      'embedded_tests=false',
+      'intrusive_tests=false',
       'message_bus=false',
       'modular_tests=disabled',
       'tools=false',

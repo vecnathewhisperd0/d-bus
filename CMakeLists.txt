@@ -443,7 +443,7 @@ enable_testing()
 
 ########### command line options ###############
 if(DBUS_BUILD_TESTS)
-    set(DBUS_ENABLE_EMBEDDED_TESTS ON)
+    set(DBUS_ENABLE_INTRUSIVE_TESTS ON)
     set(DBUS_ENABLE_MODULAR_TESTS ON)
 endif()
 

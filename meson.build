@@ -879,10 +879,12 @@ config.set('DBUS_USE_OUTPUT_DEBUG_STRING', windows_output_debug)
 # Controls whether the tools are built.
 tools = get_option('tools')
 
-# DBUS_ENABLE_EMBEDDED_TESTS controls unit tests built in to .c files
+# DBUS_ENABLE_INTRUSIVE_TESTS controls unit tests built in to .c files
 # and some stuff in the test/ subdir.
-embedded_tests = get_option('embedded_tests')
-config.set('DBUS_ENABLE_EMBEDDED_TESTS', embedded_tests)
+intrusive_tests = get_option('intrusive_tests')
+config.set('DBUS_ENABLE_INTRUSIVE_TESTS', intrusive_tests)
+# An older name for the same thing
+config.set('DBUS_ENABLE_EMBEDDED_TESTS', intrusive_tests)
 
 
 # DBUS_ENABLE_MODULAR_TESTS controls tests that work based on public API.
@@ -1343,7 +1345,7 @@ summary_dict += {
 
     'gcc coverage':             get_option('b_coverage'),
     'gcc profiling':            get_option('b_pgo'),
-    'Building embedded tests':  embedded_tests,
+    'Building intrusive tests': intrusive_tests,
     'Building modular tests':   dbus_enable_modular_tests,
     '- with GLib':              use_glib,
     'Installing tests':         get_option('installed_tests'),
@@ -1385,10 +1387,10 @@ endif
 
 summary(summary_dict, bool_yn: true)
 
-if embedded_tests
-  warning('building with unit tests increases the size of the installed library and renders it insecure.')
+if intrusive_tests
+  warning('building with intrusive tests increases the size of the installed library and renders it insecure.')
   if not asserts
-    warning('building with embedded tests but without assertions means tests may not properly report failures (this configuration is only useful when doing something like profiling the tests)')
+    warning('building with intrusive tests but without assertions means tests may not properly report failures (this configuration is only useful when doing something like profiling the tests)')
   endif
 endif
 
