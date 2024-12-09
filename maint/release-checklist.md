@@ -49,7 +49,7 @@ To make a release of D-Bus, do the following:
      `git push origin master dbus-X.Y dbus-X.Y.Z`
 
  - scp your tarball to freedesktop.org server and copy it to
-   `dbus.freedesktop.org:/srv/dbus.freedesktop.org/www/releases/dbus/dbus-X.Y.Z.tar.xz`.
+   `dbus.freedesktop.org:/srv/dbus.freedesktop.org/www/releases/dbus/`.
    This should be possible if you're in group "dbus"
 
  - Update the online documentation with
