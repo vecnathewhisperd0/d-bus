@@ -25,13 +25,13 @@ To make a release of D-Bus, do the following:
     - CMake takes the version number from `meson.build` and so should not
       need updating
 
+ - When ready to release, `git commit -a`.  This is the version
+   of the tree that corresponds exactly to the released tarball.
+
  - `meson dist -C ${builddir)`
     (this is the equivalent of Autotools `make distcheck`)
 
- - if `meson dist` failed, fix it.
-
- - once dist succeeds, `git commit -a`.  This is the version
-   of the tree that corresponds exactly to the released tarball.
+ - if `meson dist` failed, fix it, commit, retry until successful
 
  - tag the tree with `git tag -s -m 'Released X.Y.Z' dbus-X.Y.Z`
    where X.Y.Z is the version of the release.  If you can't sign
