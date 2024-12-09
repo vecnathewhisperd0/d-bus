@@ -269,6 +269,14 @@ case "$ci_buildsys" in
                 ;;
         esac
 
+        set -- "$@" -D DBUS_BUILD_TESTS=ON
+
+        case "$ci_variant" in
+            (debug)
+                set -- "$@" -D DBUS_ENABLE_INTRUSIVE_TESTS=ON
+                ;;
+        esac
+
         $cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DENABLE_WERROR=ON -S "$srcdir" -B "$ci_builddir" "$@"
 
         ${make}
