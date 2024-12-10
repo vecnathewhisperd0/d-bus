@@ -4391,6 +4391,9 @@ _dbus_get_autolaunch_address (const char *scope,
 #else
   dbus_set_error_const (error, DBUS_ERROR_NOT_SUPPORTED,
       "Using X11 for dbus-daemon autolaunch was disabled at compile time, "
+#ifdef DBUS_ENABLE_LAUNCHD
+      "verify that org.freedesktop.dbus-session.plist is loaded or "
+#endif
       "set your DBUS_SESSION_BUS_ADDRESS instead");
   return FALSE;
 #endif
@@ -4532,17 +4535,12 @@ _dbus_lookup_launchd_socket (DBusString *socket_path,
 
 #ifdef DBUS_ENABLE_LAUNCHD
 static dbus_bool_t
-_dbus_lookup_session_address_launchd (DBusString *address, DBusError  *error)
+_dbus_lookup_session_address_launchd (dbus_bool_t *supported,
+                                      DBusString  *address,
+                                      DBusError   *error)
 {
   dbus_bool_t valid_socket;
   DBusString socket_path;
-
-  if (_dbus_check_setuid ())
-    {
-      dbus_set_error_const (error, DBUS_ERROR_NOT_SUPPORTED,
-                            "Unable to find launchd socket when setuid");
-      return FALSE;
-    }
 
   if (!_dbus_string_init (&socket_path))
     {
@@ -4550,21 +4548,14 @@ _dbus_lookup_session_address_launchd (DBusString *address, DBusError  *error)
       return FALSE;
     }
 
-  valid_socket = _dbus_lookup_launchd_socket (&socket_path, "DBUS_LAUNCHD_SESSION_BUS_SOCKET", error);
-
-  if (dbus_error_is_set(error))
-    {
-      _dbus_string_free(&socket_path);
-      return FALSE;
-    }
+  valid_socket = _dbus_lookup_launchd_socket (&socket_path, "DBUS_LAUNCHD_SESSION_BUS_SOCKET", NULL);
 
   if (!valid_socket)
     {
-      dbus_set_error(error, "no socket path",
-                "launchd did not provide a socket path, "
-                "verify that org.freedesktop.dbus-session.plist is loaded!");
+      _dbus_verbose ("launchd did not provide a socket path");
       _dbus_string_free(&socket_path);
-      return FALSE;
+      *supported = FALSE;
+      return TRUE;        /* Cannot use it, but not an error */
     }
   if (!_dbus_string_append (address, "unix:path="))
     {
@@ -4682,7 +4673,7 @@ _dbus_lookup_session_address (dbus_bool_t *supported,
 {
 #ifdef DBUS_ENABLE_LAUNCHD
   *supported = TRUE;
-  return _dbus_lookup_session_address_launchd (address, error);
+  return _dbus_lookup_session_address_launchd (supported, address, error);
 #else
   *supported = FALSE;
 
