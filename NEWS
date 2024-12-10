@@ -62,7 +62,38 @@ New features and significant bug fixes:
 dbus 1.15.91 (UNRELEASED)
 =========================
 
-...
+Build-time configuration changes:
+
+• When building with Meson, the embedded_tests option has been renamed
+  to intrusive_tests. This option adds test instrumentation in libdbus
+  and dbus-daemon, which reduces performance and is not secure.
+  For production builds of dbus in OS distributions, it must be false
+  (-Dintrusive_tests=false, which is the default)
+  During development, it should be set true (-Dintrusive_tests=true)
+  for full test coverage. (dbus#537, Simon McVittie)
+
+• Similarly, when building with CMake, the DBUS_BUILD_TESTS option no
+  longer enables intrusive test instrumentation. A new option
+  -DDBUS_ENABLE_INTRUSIVE_TESTS=ON is equivalent to the Meson build
+  system's -Dintrusive_tests=true.
+
+Bug fixes:
+
+• If a DBusWatch callback fails because there is insufficient memory,
+  make sure to retry it within a finite time (dbus#536, Petr Malat)
+
+• If intrusive test instrumentation is enabled, older versions of dbus
+  would simulate an out-of-memory condition once per 2**32 allocations,
+  even if not specifically requested. This is no longer done.
+  (dbus#535, Simon McVittie)
+
+• Fix compilation on non-Linux platforms with glibc, such as
+  Debian GNU/Hurd (dbus#539, Simon McVittie)
+
+• Avoid test failures with non-trivial NSS modules, similar to dbus#256
+  (dbus#540, Simon McVittie)
+
+• Make paths in DBus1Config relocatable (dbus!499, Ralf Habacker)
 
 dbus 1.15.90 (2024-12-06)
 =========================
