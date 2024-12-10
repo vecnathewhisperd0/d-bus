@@ -25,6 +25,7 @@ project(dbus
 )
 
 option(DBUS_BUILD_TESTS "enable unit test code" ON)
+option(DBUS_ENABLE_INTRUSIVE_TESTS "enable tests that require insecure extra code in the library and binaries" OFF)
 
 # replacement for AC_C_BIGENDIAN
 include (TestBigEndian)
@@ -443,7 +444,6 @@ enable_testing()
 
 ########### command line options ###############
 if(DBUS_BUILD_TESTS)
-    set(DBUS_ENABLE_EMBEDDED_TESTS ON)
     set(DBUS_ENABLE_MODULAR_TESTS ON)
 endif()
 
@@ -639,7 +639,7 @@ add_definitions(-DHAVE_CONFIG_H)
 add_definitions(${DBUS_BUS_CFLAGS})
 
 
-if(DBUS_BUILD_TESTS)
+if(DBUS_ENABLE_MODULAR_TESTS OR DBUS_ENABLE_INTRUSIVE_TESTS)
     # set variables used for the .in files (substituted by configure_file) in test/data:
     set(DBUS_TEST_EXEC ${Z_DRIVE_IF_WINE}${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${IDE_BIN})
     # Working directory for build-time tests, so that they'll pick up
@@ -700,7 +700,7 @@ endif()
 
 add_subdirectory( dbus )
 add_subdirectory( bus )
-if(DBUS_BUILD_TESTS)
+if(DBUS_ENABLE_MODULAR_TESTS OR DBUS_ENABLE_INTRUSIVE_TESTS)
     add_subdirectory( test )
     add_custom_target(check
         COMMAND ctest -R ^test-.*
@@ -752,6 +752,7 @@ if(MSVC)
 message("        MSVC code analyze mode:   ${DBUS_MSVC_ANALYZE}                ")
 endif()
 message("        Building unit tests:      ${DBUS_BUILD_TESTS}                 ")
+message("        Building intrusive tests: ${DBUS_ENABLE_INTRUSIVE_TESTS}      ")
 message("        Building with GLib:       ${DBUS_WITH_GLIB}                   ")
 message("        Building verbose mode:    ${DBUS_ENABLE_VERBOSE_MODE}         ")
 message("        Building w/o assertions:  ${DBUS_DISABLE_ASSERT}              ")
@@ -786,11 +787,11 @@ message("        build timestamp:          ${DBUS_BUILD_TIMESTAMP}             "
 endif()
 
 message(" ")
-if(DBUS_BUILD_TESTS)
-    message("NOTE: building with unit tests increases the size of the installed library and renders it insecure.")
+if(DBUS_ENABLE_INTRUSIVE_TESTS)
+    message("NOTE: building with intrusive test code increases the size of the installed library and renders it insecure.")
 endif()
 
-if(DBUS_BUILD_TESTS AND DBUS_DISABLE_ASSERT)
+if(DBUS_ENABLE_INTRUSIVE_TESTS AND DBUS_DISABLE_ASSERT)
     message("NOTE: building with unit tests but without assertions means tests may not properly report failures (this configuration is only useful when doing something like profiling the tests)")
 endif()
 

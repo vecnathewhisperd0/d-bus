@@ -13,7 +13,7 @@ add_library(dbus-testutils STATIC
 )
 target_link_libraries(dbus-testutils ${DBUS_INTERNAL_LIBRARIES})
 
-if(DBUS_ENABLE_EMBEDDED_TESTS)
+if(DBUS_ENABLE_INTRUSIVE_TESTS)
     add_subdirectory( name-test )
 endif()
 
@@ -100,7 +100,7 @@ if(WIN32)
     add_helper_executable(manual-paths ${manual-paths_SOURCES} dbus-testutils)
 endif()
 
-if(DBUS_ENABLE_EMBEDDED_TESTS)
+if(DBUS_ENABLE_INTRUSIVE_TESTS)
     add_test_executable(test-atomic ${test-atomic_SOURCES} dbus-testutils)
     add_test_executable(test-hash internals/hash.c dbus-testutils)
     set_target_properties(test-hash PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})

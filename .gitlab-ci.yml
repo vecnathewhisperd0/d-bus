@@ -167,13 +167,14 @@ debian image:
     - .unix-host-build
   stage: build
 
-debian cmake:
+debian cmake debug:
   extends:
     - .cmake-common
     - .debian-build
   when: manual
   variables:
     ci_buildsys: "cmake"
+    ci_variant: "debug"
 
 debian meson:
   extends:
@@ -287,12 +288,13 @@ opensuse image:
     - .unix-host-build
   stage: build
 
-opensuse cmake:
+opensuse cmake debug:
   extends:
     - .cmake-common
     - .suse-build
   variables:
     ci_local_packages: "no"
+    ci_variant: "debug"
 
 # TODO: https://gitlab.freedesktop.org/dbus/dbus/-/issues/520
 opensuse mingw32 cmake:
@@ -360,14 +362,14 @@ windows msys64 ucrt64 cmake:
     - $env:MSYS2_PATH_TYPE = "inherit"
     - $env:PATH += ";C:\msys64\usr\bin"
     # FIXME: glib from msys2 has issues, disable it for now
-    - C:\msys64\usr\bin\bash -lc 'cmake -G \"MinGW Makefiles\" -S . -B build -DDBUS_WITH_GLIB=OFF && cmake --build build --config Release'
+    - C:\msys64\usr\bin\bash -lc 'cmake -G \"MinGW Makefiles\" -S . -B build -DDBUS_WITH_GLIB=OFF -DDBUS_ENABLE_INTRUSIVE_TESTS=ON && cmake --build build --config Release'
 
 windows vs15-64 cmake:
   extends:
     - .cmake-common
     - .win-build
   script:
-    - cmake -DCMAKE_PREFIX_PATH=C:/ -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=Debug -DDBUS_ENABLE_VERBOSE_MODE=OFF -S . -B build
+    - cmake -DCMAKE_PREFIX_PATH=C:/ -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=Debug -DDBUS_ENABLE_VERBOSE_MODE=OFF -DDBUS_ENABLE_INTRUSIVE_TESTS=ON -S . -B build
     - cmake --build build --config Debug
     - cmake --install build --config Debug
     # FIXME: a few tests timeout on gitlab runner for unknown reason
@@ -469,6 +471,7 @@ freebsd cmake debug:
     - .cmake-common
     - .build-env-freebsd
   variables:
+    ci_variant: "debug"
     # Don't build doxygen documentation since installing the required tools
     # massively increases the VM image (and therefore container) size.
     CI_BUILD_ARGS: "-DDBUS_ENABLE_DOXYGEN_DOCS=OFF -DDBUS_ENABLE_XML_DOCS=ON -DCMAKE_BUILD_TYPE=Debug"

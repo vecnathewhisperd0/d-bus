@@ -59,9 +59,14 @@
 #ifndef DBUS_DISABLE_CHECKS
 #  define DBUS_ENABLE_CHECKS 1
 #endif
-#cmakedefine DBUS_ENABLE_EMBEDDED_TESTS 1
+#cmakedefine DBUS_ENABLE_INTRUSIVE_TESTS 1
 #cmakedefine DBUS_ENABLE_MODULAR_TESTS 1
 #cmakedefine DBUS_USE_OUTPUT_DEBUG_STRING 1
+
+/* Compatibility with the old name for this functionality */
+#ifdef DBUS_ENABLE_INTRUSIVE_TESTS
+# define DBUS_ENABLE_EMBEDDED_TESTS 1
+#endif
 
 /* xmldocs */
 /* doxygen */
