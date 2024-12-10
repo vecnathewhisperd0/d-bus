@@ -1,3 +1,17 @@
+dbus 1.17.0-alpha (UNRELEASED)
+==============================
+
+1.17.x is a new development branch, leading to a 1.18.0 stable release.
+As in previous development cycles, all branches with an odd minor version
+(the *y* part of 1.y.z) are development releases, which will not receive
+bugfix-only security updates and are not suitable for inclusion in
+long-term-stable OS distributions.
+
+Build system and dependencies:
+
+• The version number for development releases now has an -alpha, -beta
+  or -rc suffix, to make its non-stable status more obvious.
+
 dbus 1.16.0 (UNRELEASED)
 ========================
 
