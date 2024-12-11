@@ -3815,7 +3815,7 @@ test_default_session_servicedirs (const DBusString *test_base_dir)
     {
       _dbus_test_diag ("Not testing default session service directories because a "
               "build-time testing environment variable is not set: "
-              "see AM_TESTS_ENVIRONMENT in tests/Makefile.am");
+              "see test_env in tests/meson.build");
       ret = TRUE;
       goto out;
     }
@@ -3835,7 +3835,7 @@ test_default_session_servicedirs (const DBusString *test_base_dir)
   if (!_dbus_string_append (&runtime_dir_based, "/dbus-1/services"))
     _dbus_test_fatal ("out of memory");
 
-  /* Sanity check: the Makefile sets this up. We assume that if this is
+  /* The Meson build system sets this up. We assume that if this is
    * right, the XDG_DATA_DIRS will be too. */
   if (!_dbus_string_starts_with_c_str (&data_home_based, dbus_test_builddir))
     _dbus_test_fatal ("$XDG_DATA_HOME should start with $DBUS_TEST_BUILDDIR");
