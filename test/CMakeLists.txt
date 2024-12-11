@@ -150,8 +150,7 @@ if(DBUS_ENABLE_INTRUSIVE_TESTS)
     set(SOURCES bus/main.c bus/common.c bus/common.h)
     add_test_executable(test-bus "${SOURCES}" dbus-daemon-internal dbus-testutils ${EXPAT_LIBRARIES})
     # TODO: For full coverage this should be run with some specific
-    # environment variable values: see test_env in tests/meson.build,
-    # and dbus#538
+    # environment variable values: see dbus#541
     set_target_properties(test-bus PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 
     if(ENABLE_TRADITIONAL_ACTIVATION)
