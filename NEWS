@@ -82,8 +82,17 @@ New features and significant bug fixes:
 
 • Portability to CPU architectures with larger-than-64-bit pointers
 
-dbus 1.15.91 (UNRELEASED)
+dbus 1.15.94 (UNRELEASED)
 =========================
+
+...
+
+dbus 1.15.92 (2024-12-11)
+=========================
+
+The "future flyer" release.
+
+This is a second release-candidate for the new dbus 1.16.x stable branch.
 
 Build-time configuration changes:
 
@@ -120,7 +129,8 @@ Bug fixes:
 • Avoid test failures with non-trivial NSS modules, similar to dbus#256
   (dbus#540, Simon McVittie)
 
-• Make paths in DBus1Config relocatable (dbus!499, Ralf Habacker)
+• When built with CMake, make paths in DBus1Config relocatable
+  (dbus!499, Ralf Habacker)
 
 dbus 1.15.90 (2024-12-06)
 =========================
