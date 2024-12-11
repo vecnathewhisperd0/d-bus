@@ -606,6 +606,9 @@ _dbus_check_fdleaks_leave (DBusInitialFDs *fds,
 
       while ((de = readdir(d)))
         {
+          char description[256] = { 0 };
+          char proc_self_fd[256] = { 0 };
+          size_t description_length = sizeof (description) - 1;
           long l;
           char *e = NULL;
           int fd;
@@ -635,7 +638,17 @@ _dbus_check_fdleaks_leave (DBusInitialFDs *fds,
           if (FD_ISSET (fd, &fds->set))
             continue;
 
-          _dbus_test_fatal ("file descriptor %i leaked in %s.", fd, context);
+          snprintf (proc_self_fd, sizeof (proc_self_fd) - 1,
+                    "/proc/self/fd/%ld", l);
+          proc_self_fd[sizeof (proc_self_fd) - 1] = '\0';
+
+          if (readlink (proc_self_fd, description, description_length) <= 0)
+            snprintf (description, sizeof (description) - 1, "(unknown)");
+
+          description[sizeof (description) - 1] = '\0';
+
+          _dbus_test_fatal ("file descriptor %i \"%s\" leaked in %s.",
+                            fd, description, context);
         }
 
       closedir (d);
