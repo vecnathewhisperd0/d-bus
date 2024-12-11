@@ -11,6 +11,15 @@ Build system and dependencies:
 
 • The version number for development releases now has an -alpha, -beta
   or -rc suffix, to make its non-stable status more obvious.
+  This is included in the compile-time DBUS_VERSION_STRING, but not
+  the compile-time DBUS_VERSION or the runtime dbus_get_version().
+  (dbus#530, dbus!494; Simon McVittie)
+
+Tests and CI:
+
+• On Linux, if a test fails because a file descriptor was leaked,
+  log the file descriptor's filename or type as a hint to aid debugging
+  (dbus!503, Simon McVittie)
 
 dbus 1.16.0 (UNRELEASED)
 ========================
