@@ -82,6 +82,10 @@ Bug fixes:
 • If a DBusWatch callback fails because there is insufficient memory,
   make sure to retry it within a finite time (dbus#536, Petr Malat)
 
+• On macOS with launchd enabled, if the session bus launchd integration
+  is not correctly configured, don't treat that as a fatal error that
+  prevents connecting to the system bus (dbus#510, Mohamed Akram)
+
 • If intrusive test instrumentation is enabled, older versions of dbus
   would simulate an out-of-memory condition once per 2**32 allocations,
   even if not specifically requested. This is no longer done.
