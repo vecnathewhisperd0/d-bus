@@ -34,7 +34,7 @@ include:
       - '/templates/freebsd.yml'
       - '/templates/opensuse.yml'
 
-image: debian:bullseye-slim
+image: debian:bookworm-slim
 
 stages:
   - 'build docker'
