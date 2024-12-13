@@ -184,7 +184,12 @@ if cc.has_link_argument(
         meson.current_source_dir() / 'test-version-script'
     )
 )
-    version_flags = ['-Wl,--version-script,@0@'.format(version_script)]
+    if meson.version().version_compare('>=1.4.0')
+        version_script_path = version_script.full_path()
+    else
+        version_script_path = meson.current_build_dir() / 'version_script'
+    endif
+    version_flags = ['-Wl,--version-script,@0@'.format(version_script_path)]
 else
     version_flags = []
 endif
