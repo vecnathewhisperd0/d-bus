@@ -139,7 +139,7 @@ option(
 option(
   'message_bus',
   type: 'boolean',
-  value: 'true',
+  value: true,
   description: 'Enable dbus-daemon'
 )
 
@@ -253,7 +253,7 @@ option(
 option(
   'tools',
   type: 'boolean',
-  value: 'true',
+  value: true,
   description: 'Enable CLI tools such as dbus-send and dbus-monitor'
 )
 
