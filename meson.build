@@ -69,14 +69,14 @@ config.set_quoted('DBUS_DAEMON_NAME', 'dbus-daemon')
 # be careful if changing the formatting
 
 ## increment if the interface has additions, changes, removals.
-lt_current = 41
+lt_current = 42
 ## increment any time the source changes;
 ## set to 0 if you increment CURRENT
-lt_revision = 3
+lt_revision = 0
 ## increment if any interfaces have been added;
 ## set to 0 if any interfaces have been changed or removed.
 ## removal has precedence over adding, so set to 0 if both happened.
-lt_age = 38
+lt_age = 39
 
 soversion = (lt_current - lt_age)
 version_info = '@0@.@1@.@2@'.format(soversion, lt_age, lt_revision)
