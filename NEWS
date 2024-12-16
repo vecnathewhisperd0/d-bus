@@ -34,6 +34,7 @@ Build system and dependencies:
 • The Meson build system is the recommended way to build dbus on Unix.
   This requires Meson 0.56 and Python 3.5.
   · Projects that depend on libdbus can build it as a Meson subproject.
+    See tests/use-as-subproject/meson.build for suggested build options.
 
 • CMake continues to be available as an alternative build system,
   and is recommended on Windows. This requires CMake 3.10.
@@ -82,14 +83,17 @@ New features and significant bug fixes:
 
 • Portability to CPU architectures with larger-than-64-bit pointers
 
-dbus 1.15.94 (UNRELEASED)
-=========================
+Changes since 1.15.92 release candidate
+---------------------------------------
 
 Dependencies:
 
 • Building with CMake now requires CMake ≥ 3.10.
 
 Bug fixes:
+
+• Avoid deprecation warnings with newer Meson versions
+  (dbus!507, Simon McVittie)
 
 • Avoid deprecation warnings with newer CMake versions
   (dbus#541, Ralf Habacker)
@@ -98,6 +102,9 @@ Tests and CI enhancements:
 
 • When building with CMake, set the same environment variables as Meson.
   This improves test coverage. (dbus#533, Ralf Habacker)
+
+• Remove a remaining reference to Debian 11, which is EOL
+  (dbus!508, Simon McVittie)
 
 dbus 1.15.92 (2024-12-11)
 =========================
