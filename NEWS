@@ -1,7 +1,9 @@
-dbus 1.16.0 (UNRELEASED)
+dbus 1.16.0 (2024-12-16)
 ========================
 
-1.16.x will be a new stable branch, superseding 1.14.x.
+The “one hundred pink frogs” release.
+
+1.16.x is a new stable branch, superseding 1.14.x.
 
 Summary of major changes between 1.14.x and 1.16.0
 --------------------------------------------------
