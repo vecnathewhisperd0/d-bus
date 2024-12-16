@@ -109,9 +109,9 @@ sample code and suggested build options.
 External software dependencies
 ==============================
 
-Required:
+Usually required:
 
-  - expat
+  - expat                (not required if dbus-daemon is not built)
 
 Optional:
 
