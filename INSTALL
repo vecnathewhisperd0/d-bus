@@ -96,6 +96,16 @@ detection, is during packaging of binary builds, where a predictable
 dependancy chain is required. For more details on cmake installation,
 consult http://www.cmake.org/cmake/help/help.html.
 
+Building as a subproject
+========================
+
+libdbus can be built as a Meson subproject, allowing larger projects that
+require it to default to a system copy if available but fall back to a
+vendored or downloaded copy if necessary. When doing this, it is usually
+best to disable the shared library, dbus-daemon, tools and tests, leaving
+only a static library: please see test/use-as-subproject/meson.build for
+sample code and suggested build options.
+
 External software dependencies
 ==============================
 
