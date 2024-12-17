@@ -21,6 +21,10 @@ Tests and CI:
   log the file descriptor's filename or type as a hint to aid debugging
   (dbus!503, Simon McVittie)
 
+Internal changes:
+
+• Documentation updates
+
 dbus 1.16.0 (2024-12-16)
 ========================
 
