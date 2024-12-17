@@ -26,9 +26,11 @@ file INSTALL for more information.
 
 windbus and dbus4win Ports
 --------------------------
-The Windows ports from the windbus and dbus4win projects has been merged
-into the freedesktop git master branch, as applicable. The spec has been
-updated with windows specific stuff.
+Very old versions of dbus only supported Unix plaforms, with third-party
+Windows ports available from the windbus and dbus4win projects.
+Those projects have been merged into dbus' main git repository,
+making the third-party ports obsolete. Similarly, the specification
+has been updated with Windows-specific details.
 
 
 Tests
