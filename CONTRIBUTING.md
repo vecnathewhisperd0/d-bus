@@ -53,8 +53,8 @@ checkouts.
 D-Bus development happens in multiple branches in parallel. The main
 branches are the current stable branch, with an even minor number (like
 1.0, 1.2 and 1.4), and the next development branch, with the next odd
-number. At the time of writing, the stable branch is dbus 1.12.x and
-the development branch is dbus 1.13.x, leading to a new 1.14.x stable
+number. At the time of writing, the stable branch is dbus 1.16.x and
+the development branch is dbus 1.17.x, leading to a new 1.18.x stable
 branch in future.
 
 Stable branches are named after the version number itself (`dbus-1.2`,
@@ -74,9 +74,9 @@ These are announced on the D-Bus mailing list.
 
 Old development branches are not supported at all, and will not receive
 any bug fixes - not even for security vulnerabilities. Please do not
-use a development branch like 1.13.x in your OS distribution, unless
+use a development branch like 1.17.x in your OS distribution, unless
 you can guarantee that you will upgrade to the next stable branch such
-as 1.14.x when it becomes available.
+as 1.18.x when it becomes available.
 
 ### Commits
 
