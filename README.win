@@ -21,7 +21,7 @@ not supported.
 
 Building
 --------
-DBus can be built on windows using automake or cmake. See the
+DBus can be built on Windows using Meson or cmake. See the
 file INSTALL for more information.
 
 windbus and dbus4win Ports
