@@ -83,6 +83,9 @@ Development snapshots make no ABI stability guarantees for new ABI
 introduced since the last stable release. Development snapshots are
 likely to have more bugs than stable releases, obviously.
 
+Since 1.16.0, development snapshots will also have an -alpha, -beta or -rc
+suffix on the version number to make their development status more obvious.
+
 Configuration and installation
 ===
 
