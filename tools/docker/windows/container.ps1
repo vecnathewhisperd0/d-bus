@@ -1,6 +1,6 @@
 # Copied from mesa, big kudos
 #
-# https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/.gitlab-ci/windows/mesa_container.ps1
+# https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/.gitlab-ci/windows/mesa_container.ps1
 # https://gitlab.freedesktop.org/mesa/mesa/-/blob/34e3e164936d1d3cef267da7780e87f062fedf39/.gitlab-ci/windows/mesa_container.ps1
 
 # Implements the equivalent of ci-templates container-ifnot-exists, using
