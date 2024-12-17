@@ -4,7 +4,7 @@ Windows port of the freedesktop.org D-Bus
 
 Features and completeness
 -------------------------
-The windows port of dbus provides the dbus-1 library and mostly
+The Windows port of dbus provides the dbus-1 library and mostly
 applications which are already available on unix. These applications
 are: dbus-daemon, dbus-launch, dbus-monitor and dbus-send.
 DBus comes with a test suite which is used on unix to guarantate
