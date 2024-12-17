@@ -217,20 +217,20 @@ client library.
 * `DBUS_VERBOSE=1`
 
   Turns on printing verbose messages. This only works if D-Bus has been
-  compiled with `--enable-verbose-mode`.
+  compiled with `-Dverbose_mode=true`.
 
 * `DBUS_MALLOC_FAIL_NTH=n`
 
   Can be set to a number, causing every *n*th call to `dbus_alloc` or
   `dbus_realloc` to fail. This only works if D-Bus has been compiled with
-  `--enable-embedded-tests`.
+  `-Dintrusive_tests=true`.
 
 * `DBUS_MALLOC_FAIL_GREATER_THAN=n`
 
   Can be set to a number, causing every call to `dbus_alloc` or
   `dbus_realloc` to fail if the number of bytes to be allocated is greater
   than the specified number. This only works if D-Bus has been compiled with
-  `--enable-embedded-tests`.
+  `-Dintrusive_tests=true`.
 
 * `DBUS_TEST_MALLOC_FAILURES=n`
 
@@ -251,18 +251,18 @@ Please try to write test coverage for all new functionality.
 We have two broad categories of tests.
 
 The *modular tests* are enabled by configuring with
-`--enable-modular-tests`. These mostly use GLib's GTest framework,
+`-Dmodular_tests=enabled`. These mostly use GLib's GTest framework,
 and are standalone programs that do not affect the contents of the
 production dbus library and programs. Most of them can be installed
 alongside the library and programs by configuring with
-`--enable-installed-tests`.
+`-Dinstalled_tests=true`.
 
-The *embedded tests* are enabled by configuring with
-`--enable-embedded-tests`. Unlike the modular tests, enabling the
-embedded tests adds special code to libdbus and dbus-daemon, some of
+The *intrusive tests* are enabled by configuring with
+`-Dintrusive_tests=true`. Unlike the modular tests, enabling the
+intrusive tests adds special code to libdbus and dbus-daemon, some of
 which may harm performance or security. A production version of dbus
 that will be included in an operating system should never have the
-embedded tests enabled.
+intrusive tests enabled.
 
 If possible, new test coverage should be provided via modular tests,
 preferably using GLib's GTest framework. `test/dbus-daemon.c` is a good
