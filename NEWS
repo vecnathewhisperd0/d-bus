@@ -52,6 +52,21 @@ Build system and dependencies:
 
 Behaviour changes:
 
+• As a result of the move from Autotools to Meson as the recommended
+  build system on Unix, the names of all build-time options have changed.
+  Not all Meson options are a 1:1 replacement for their closest equivalent
+  in Autotools, so the options used for a dbus build should be reviewed.
+
+• If `meson install` is run as root, and traditional (non-systemd)
+  activation is enabled, the ownership and setuid permission of
+  dbus-daemon-launch-helper are not set automatically.
+  This is not the same as the historical behaviour of the Autotools build
+  system, which would set the ownership and permissions automatically if
+  run as uid 0.
+  The ownership and permissions must now be set by OS distribution packaging,
+  or as a manual post-installation step if dbus is installed directly
+  without going via a packaging system (which is not recommended).
+
 • On Unix, the well-known system bus socket is in the runtime state
   directory by default (normally /run)
   (see 1.15.4 for more details)
